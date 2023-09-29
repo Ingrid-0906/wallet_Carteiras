@@ -29,7 +29,7 @@ class AnaliseCarteira:
             Sinaliza onde está para mais ou menos de acordo com os ranges acordados no ips.
             Lógica Aplicada:
                 - O cliente tem que ter 0 para estar dentro do padrão do perfil.
-                - Se estiver negativo, quer dizer que está abaixo do esperado (oportunidade de venda)
+                - Se estiver negativo, quer dizer que está abaixo do esperado (oportunidade de venda ou reinvestimento)
                 - Se estiver positivo, quer dizer que ultrapassou o limite do perfil (realocar)
         """
         return round(row[tipo_investimento] - persona[persona['ips'] == tipo_investimento][row['perfil']], 2)
@@ -75,6 +75,10 @@ class AnaliseCarteira:
     def saude_investimentos(row):
         """
             Analisa o estado de saúde da carteira observando o percentual do range de alocação.
+            A atribuicao é dada ditribuindo um peso igualmente proporcional para cada classe.
+            Se a o valor de uma classe estiver dentro da margem de segurança (2% / -2%) então
+            não é necessária a intervencao do consultor. Caso contrário, será indicado o estado de
+            saúde como debilitado.
             Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
         """
         
