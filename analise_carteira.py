@@ -61,7 +61,7 @@ class AnaliseCarteira:
                         sobra = valor + proximo
                         valores['ativo'].append(ordenado.columns[col])
                         valores['realocar'].append(proximo_ativo)
-                        valores['valor_estimado'].append(proximo if sobra < 0 else abs(valor))
+                        valores['valor_estimado_R$'].append(proximo if sobra < 0 else abs(valor))
                         valor = 0 if sobra > 0 else sobra
                         ordenado.iloc[0, i] = sobra if sobra > 0 else 0
                     else:
@@ -70,3 +70,20 @@ class AnaliseCarteira:
                     break
 
         return pd.DataFrame(data=valores), abs(ordenado)
+    
+    
+    def saude_investimentos(row):
+        """
+            Analisa o estado de saúde da carteira observando o percentual do range de alocação.
+            Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
+        """
+        
+        classe_health = np.where((row > -0.02) & (row < 0.02), (1/11)/2, 1/11)
+        status = np.sum(classe_health) * 100
+
+        if status < 33.33:
+            return 'razoável'
+        elif status < 66.66:
+            return 'aceitável'
+        else:
+            return 'debilitado'
