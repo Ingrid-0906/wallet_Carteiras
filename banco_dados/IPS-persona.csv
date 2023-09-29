@@ -1,0 +1,12 @@
+﻿ips;defensivo;conservador;moderado;dinamico;arrojado
+renda fixa pos;0.75;0.42;0.24;0.08;0.03
+renda fixa hy;0.08;0.10;0.10;0.08;0.05
+renda fixa pre;0.00;0.03;0.05;0.08;0.04
+renda fixa inflacao cp;0.10;0.10;0.10;0.09;0.08
+multimercado;0.07;0.17;0.20;0.22;0.18
+imobiliarios;0.00;0.04;0.03;0.05;0.05
+renda variavel br;0.00;0.04;0.10;0.15;0.20
+renda fixa global;0.00;0.03;0.03;0.03;0.00
+multimercado global;0.00;0.02;0.03;0.03;0.05
+renda variavel global;0.00;0.02;0.02;0.04;0.07
+alternativos;0.00;0.03;0.10;0.15;0.25
