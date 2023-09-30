@@ -30,12 +30,15 @@ if __name__=='__main__':
         DATA_PORCENTO[coluna] = DATA_PORCENTO.apply(lambda row: wallet.porcento_classe(row, tipo_investimento),axis=1)
     
     DATA_BANDEIRA = DATA_PORCENTO.copy()
-    for tipo_investimento, coluna in tipo_investimento_para_coluna.items(): # sinalizar se está saudavel ou nao // salvar tudo! como json
+    for tipo_investimento, coluna in tipo_investimento_para_coluna.items():
         DATA_BANDEIRA[coluna] = DATA_BANDEIRA.apply(lambda row: wallet.bandeira_classe(row, df_persona, tipo_investimento),axis=1)
 
-    DATA_BANDEIRA['status_saude'] = DATA_BANDEIRA.loc[:, 'renda fixa pos':'alternativos'].apply(wallet.saude_investimentos, axis=1)
+    saude_hj = DATA_BANDEIRA.loc[:, 'renda fixa pos':'alternativos'].apply(wallet.saude_investimentos, axis=1)
+    DATA_BANDEIRA['porcento_saude'] = saude_hj.apply(lambda x: x[0])
+    DATA_BANDEIRA['status_saude'] = saude_hj.apply(lambda x: x[1])
+    # Reorganizar as colunas antes de salvá-las
     DATA_BANDEIRA[['id','perfil','renda fixa pos','renda fixa hy','renda fixa pre','renda fixa inflacao cp','multimercado','imobiliarios',
-	  'renda variavel br','renda fixa global','multimercado global','renda variavel global','alternativos','status_saude','pl']]
+	  'renda variavel br','renda fixa global','multimercado global','renda variavel global','alternativos','porcento_saude','status_saude','pl']]
 
     # salvar antes de continuar
     DATA_BANDEIRA.to_json("banco_dados/carteira_tabela_1.json", orient="table")

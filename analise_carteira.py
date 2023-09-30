@@ -82,12 +82,13 @@ class AnaliseCarteira:
             Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
         """
         
-        classe_health = np.where((row > -0.02) & (row < 0.02), (1/11)/2, 1/11)
-        status = np.sum(classe_health) * 100
+        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
+        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
+        status = np.sum(classe_health)
 
-        if status < 33.33:
-            return 'razoável'
-        elif status < 66.66:
-            return 'aceitável'
+        if status < 0.33:
+            return [round(status, 2), str('razoável')]
+        elif status < 0.66:
+            return [round(status, 2), str('aceitável')]
         else:
-            return 'debilitado'
+            return [round(status, 2), str('debilitado')]
