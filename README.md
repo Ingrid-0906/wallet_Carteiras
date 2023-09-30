@@ -13,7 +13,7 @@ Repo destinada ao modelo de análise de investimento englobando carteira e class
 /analise_carteira.py: a lógica aplicada para analisar e sugerir a realocacao das classes
 /app.py: Chamada do software
 
-### Síntese da Lógica Aplicada:
+### Síntese da Lógica Aplicada (Perfil: Defensivo):
 | classe                 | Valor Líquido (R$) | Valor vs. PL (%) ps. sem truncar | Proporção (%) vs. Ranges(%) ps. sem truncar | Saúde (%) vs Margem [(+/-)2%] ps. peso de 1 para 11 = 0.099 | Valor para Alocar (R$) |
 |------------------------|--------------------|----------------------------------|---------------------------------------------|-------------------------------------------------------------|------------------------|
 | renda fixa pos         | 305.291,00         | 0.132625                         | -61.737475                                  | 0.099                                                       | 1.421.139,25           |
