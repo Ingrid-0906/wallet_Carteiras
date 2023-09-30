@@ -14,6 +14,8 @@ Repo destinada ao modelo de análise de investimento englobando carteira e class
 /app.py: Chamada do software
 
 ### Síntese da Lógica Aplicada (Perfil: Defensivo):
+- Destacar o desbalance e achar os recursos que sobram (passam do padrão do perfil) para aplicar onde falta (de acordo com o perfil)
+  
 | classe                 | Valor Líquido (R$) | Valor vs. PL (fração) ps. sem truncar | Valor (%) vs. Ranges(%) ps. sem truncar | Saúde (fração) vs Margem [(+/-)2%] ps. peso de 1 para 11 = 0.099 | Valor para Alocar (R$) |
 |------------------------|--------------------|----------------------------------|---------------------------------------------|-------------------------------------------------------------|------------------------|
 | renda fixa pos         | 305.291,00         | 0.132625                         | -61.737475                                  | 0.099                                                       | 1.421.139,25           |
