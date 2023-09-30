@@ -95,6 +95,7 @@ class AnaliseCarteira:
                     break
 
         sugestao = pd.DataFrame(data=valores)
-        sugestao['valor_estimado_R$'] = sugestao['valor_estimado_R$'].apply(lambda x: round(x, 3))
+        sugestao['valor_estimado_R$'] = sugestao['valor_estimado_R$'].apply(lambda x: int(x * (10**3))/(10**3))
+        ordenado = ordenado.apply(lambda x: int(abs(x.loc[0]) * (10**3))/(10**3), 3)
         
-        return sugestao, abs(ordenado)
+        return sugestao, ordenado
