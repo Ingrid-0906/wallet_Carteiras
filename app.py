@@ -8,18 +8,16 @@ import analise_carteira as analise_carteira
 if __name__=='__main__':
     wallet = analise_carteira.AnaliseCarteira()
     
-    df_carteira = pd.read_csv("banco_dados/carteira_macro-visao.csv", delimiter=";").set_index('id') # INPUT! COMO? ESTUDANDO...
-    # Criar uma nova coluna PL // necessário
-    df_carteira['pl'] = df_carteira.iloc[0:, 2:13].sum(axis=1)
+    df_carteira = pd.read_csv("banco_dados/carteira_mock_vs1.csv").set_index('id')
     df_persona = pd.read_csv("banco_dados/IPS-persona.csv", delimiter=';')
     
     tipo_investimento_para_coluna = {
         'renda fixa pos': 'renda fixa pos',
         'renda fixa hy': 'renda fixa hy',
         'renda fixa pre': 'renda fixa pre',
-        'renda fixa inflacao cp': 'renda fixa inflacao cp', # mesmo que renda fixa pos
-        'multimercado': 'multimercado', # mesmo que renda variavel
-        'imobiliarios': 'imobiliarios', # mesmo que renda variavel
+        'renda fixa inflacao cp': 'renda fixa inflacao cp',
+        'multimercado': 'multimercado',
+        'imobiliarios': 'imobiliarios',
         'renda variavel br': 'renda variavel br',
         'renda fixa global': 'renda fixa global',
         'multimercado global': 'multimercado global',

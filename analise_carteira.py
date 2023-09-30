@@ -21,7 +21,7 @@ class AnaliseCarteira:
             Transforma as classes em porcentagem de acordo com a proporcao devida
             em relacao ao patrimonio liquido total
         """
-        return round(row[tipo_investimento] / row['pl'], 2)
+        return row[tipo_investimento] / row['pl']
 
 
     def bandeira_classe(self, row, persona, tipo_investimento):
@@ -32,8 +32,10 @@ class AnaliseCarteira:
                 - Se estiver negativo, quer dizer que está abaixo do esperado (oportunidade de venda ou reinvestimento)
                 - Se estiver positivo, quer dizer que ultrapassou o limite do perfil (realocar)
         """
-        return round(row[tipo_investimento] - persona[persona['ips'] == tipo_investimento][row['perfil']], 2)
-
+        n = row[tipo_investimento] - persona[persona['ips'] == tipo_investimento][row['perfil']]
+        delta = n * 100
+        return delta
+    
 
     def saude_investimentos(self, row):
         """
@@ -45,7 +47,7 @@ class AnaliseCarteira:
             Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
         """
         
-        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
+        classe_health = np.where((row > -2.0) & (row < 2.0), 0, 1/11)
         status = np.sum(classe_health)
 
         if status < 0.33:
@@ -60,7 +62,9 @@ class AnaliseCarteira:
         """
             Transforma os valores sinalizados em montante de real (R$)
         """
-        return round(row[tipo_investimento] * row['pl'], 2)
+        n = round(row[tipo_investimento] / 100, 8)
+        result = row['pl'] * n
+        return result
 
 
     def alinhamento_classe(self, ordenado):
@@ -90,7 +94,7 @@ class AnaliseCarteira:
                 else:
                     break
 
-        return pd.DataFrame(data=valores), abs(ordenado)
-    
-    
-    
+        sugestao = pd.DataFrame(data=valores)
+        sugestao['valor_estimado_R$'] = sugestao['valor_estimado_R$'].apply(lambda x: round(x, 3))
+        
+        return sugestao, abs(ordenado)
