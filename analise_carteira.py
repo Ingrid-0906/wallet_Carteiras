@@ -35,6 +35,27 @@ class AnaliseCarteira:
         return round(row[tipo_investimento] - persona[persona['ips'] == tipo_investimento][row['perfil']], 2)
 
 
+    def saude_investimentos(self, row):
+        """
+            Analisa o estado de saúde da carteira observando o percentual do range de alocação.
+            A atribuicao é dada ditribuindo um peso igualmente proporcional para cada classe.
+            Se a o valor de uma classe estiver dentro da margem de segurança (2% / -2%) então
+            não é necessária a intervencao do consultor. Caso contrário, será indicado o estado de
+            saúde como debilitado.
+            Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
+        """
+        
+        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
+        status = np.sum(classe_health)
+
+        if status < 0.33:
+            return [round(status, 2), str('razoável')]
+        elif status < 0.66:
+            return [round(status, 2), str('aceitável')]
+        else:
+            return [round(status, 2), str('debilitado')]
+        
+        
     def reais_classe(self, row, tipo_investimento):
         """
             Transforma os valores sinalizados em montante de real (R$)
@@ -72,22 +93,4 @@ class AnaliseCarteira:
         return pd.DataFrame(data=valores), abs(ordenado)
     
     
-    def saude_investimentos(self, row):
-        """
-            Analisa o estado de saúde da carteira observando o percentual do range de alocação.
-            A atribuicao é dada ditribuindo um peso igualmente proporcional para cada classe.
-            Se a o valor de uma classe estiver dentro da margem de segurança (2% / -2%) então
-            não é necessária a intervencao do consultor. Caso contrário, será indicado o estado de
-            saúde como debilitado.
-            Foi dado um espaço de 2% de margem para evitar alarme desnecessário.
-        """
-        
-        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
-        status = np.sum(classe_health)
-
-        if status < 0.33:
-            return [round(status, 2), str('razoável')]
-        elif status < 0.66:
-            return [round(status, 2), str('aceitável')]
-        else:
-            return [round(status, 2), str('debilitado')]
+    

@@ -9,6 +9,8 @@ if __name__=='__main__':
     wallet = analise_carteira.AnaliseCarteira()
     
     df_carteira = pd.read_csv("banco_dados/carteira_macro-visao.csv", delimiter=";").set_index('id') # INPUT! COMO? ESTUDANDO...
+    # Criar uma nova coluna PL // necessário
+    df_carteira['pl'] = df_carteira.iloc[0:, 2:13].sum(axis=1)
     df_persona = pd.read_csv("banco_dados/IPS-persona.csv", delimiter=';')
     
     tipo_investimento_para_coluna = {
@@ -27,11 +29,16 @@ if __name__=='__main__':
 
     DATA_PORCENTO = df_carteira.copy()
     for tipo_investimento, coluna in tipo_investimento_para_coluna.items():
-        DATA_PORCENTO[coluna] = DATA_PORCENTO.apply(lambda row: wallet.porcento_classe(row, tipo_investimento),axis=1)
+        DATA_PORCENTO[coluna] = DATA_PORCENTO.apply(
+            lambda row: wallet.porcento_classe(row, tipo_investimento),
+            axis=1
+        )
     
     DATA_BANDEIRA = DATA_PORCENTO.copy()
     for tipo_investimento, coluna in tipo_investimento_para_coluna.items():
-        DATA_BANDEIRA[coluna] = DATA_BANDEIRA.apply(lambda row: wallet.bandeira_classe(row, df_persona, tipo_investimento),axis=1)
+        DATA_BANDEIRA[coluna] = DATA_BANDEIRA.apply(
+            lambda row: wallet.bandeira_classe(row, df_persona, tipo_investimento),
+            axis=1)
 
     saude_hj = DATA_BANDEIRA.loc[:, 'renda fixa pos':'alternativos'].apply(wallet.saude_investimentos, axis=1)
     DATA_BANDEIRA['porcento_saude'] = saude_hj.apply(lambda x: x[0])
