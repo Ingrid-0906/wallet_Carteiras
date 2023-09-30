@@ -37,7 +37,7 @@ if __name__=='__main__':
     DATA_BANDEIRA['porcento_saude'] = saude_hj.apply(lambda x: x[0])
     DATA_BANDEIRA['status_saude'] = saude_hj.apply(lambda x: x[1])
     # Reorganizar as colunas antes de salvá-las
-    DATA_BANDEIRA[['id','perfil','renda fixa pos','renda fixa hy','renda fixa pre','renda fixa inflacao cp','multimercado','imobiliarios',
+    DATA_BANDEIRA[['perfil','renda fixa pos','renda fixa hy','renda fixa pre','renda fixa inflacao cp','multimercado','imobiliarios',
 	  'renda variavel br','renda fixa global','multimercado global','renda variavel global','alternativos','porcento_saude','status_saude','pl']]
 
     # salvar antes de continuar

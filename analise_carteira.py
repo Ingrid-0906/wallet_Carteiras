@@ -72,7 +72,7 @@ class AnaliseCarteira:
         return pd.DataFrame(data=valores), abs(ordenado)
     
     
-    def saude_investimentos(row):
+    def saude_investimentos(self, row):
         """
             Analisa o estado de saúde da carteira observando o percentual do range de alocação.
             A atribuicao é dada ditribuindo um peso igualmente proporcional para cada classe.
