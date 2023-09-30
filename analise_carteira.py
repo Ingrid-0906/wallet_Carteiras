@@ -83,7 +83,6 @@ class AnaliseCarteira:
         """
         
         classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
-        classe_health = np.where((row > -0.02) & (row < 0.02), 0, 1/11)
         status = np.sum(classe_health)
 
         if status < 0.33:
